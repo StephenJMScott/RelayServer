@@ -42,6 +42,8 @@ public class ClientSideGui extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMessageArea = new javax.swing.JTextArea();
         btnSend = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtReturnArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,40 +70,46 @@ public class ClientSideGui extends javax.swing.JFrame {
 
         btnSend.setText("Send Message");
 
+        txtReturnArea.setColumns(20);
+        txtReturnArea.setRows(5);
+        jScrollPane2.setViewportView(txtReturnArea);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnSend)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblIPAddress)
-                                    .addComponent(lblPort))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtIPField)
-                                    .addComponent(txtPortField, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSetIPandPort))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSend, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(lblClientSide, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblIPAddress)
+                            .addComponent(lblPort))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtIPField)
+                            .addComponent(txtPortField, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSetIPandPort))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 101, Short.MAX_VALUE)
+                .addComponent(lblClientSide, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblClientSide)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
+                .addComponent(lblClientSide, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblIPAddress)
                     .addComponent(txtIPField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -111,10 +119,12 @@ public class ClientSideGui extends javax.swing.JFrame {
                     .addComponent(txtPortField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSetIPandPort))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSend)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,14 +149,24 @@ public class ClientSideGui extends javax.swing.JFrame {
                     booPort = false;
                 }
                 
-                if(!booIP && !booPort)
-                    JOptionPane.showMessageDialog(null, "Incorrect IP and Port Details");
-                else if(!booIP && booPort)
-                    JOptionPane.showMessageDialog(null, "Incorrect IP Details");
-                else if (booIP && !booPort)
-                    JOptionPane.showMessageDialog(null, "Incorrect Port Details");
+                if(!booIP && !booPort){
+                    JOptionPane.showMessageDialog(this, "Incorrect IP and Port Details");
+                    txtIPField.setText("");
+                    txtPortField.setText("");
+                    txtIPField.requestFocus();
+                }
+                else if(!booIP && booPort){
+                    JOptionPane.showMessageDialog(this, "Incorrect IP Details");
+                    txtIPField.setText("");
+                    txtIPField.requestFocus();
+                }
+                else if (booIP && !booPort){
+                    JOptionPane.showMessageDialog(this, "Incorrect Port Details");
+                    txtPortField.setText("");
+                    txtPortField.requestFocus();
+                }
                 else if (booIP && booPort)
-                    JOptionPane.showMessageDialog(null, "Connection set!");
+                    JOptionPane.showMessageDialog(this, "Connection set!");
             
             
             }
@@ -196,11 +216,13 @@ public class ClientSideGui extends javax.swing.JFrame {
     private javax.swing.JButton btnSend;
     private javax.swing.JButton btnSetIPandPort;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblClientSide;
     private javax.swing.JLabel lblIPAddress;
     private javax.swing.JLabel lblPort;
     private javax.swing.JTextField txtIPField;
     private javax.swing.JTextArea txtMessageArea;
     private javax.swing.JTextField txtPortField;
+    private javax.swing.JTextArea txtReturnArea;
     // End of variables declaration//GEN-END:variables
 }
