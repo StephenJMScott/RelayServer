@@ -179,7 +179,7 @@ public class ClientSideGui extends javax.swing.JFrame {
                 else if (booIP && booPort){
                     //set the connection up with the inputted variables//
                     
-                    try{
+                    try{    //this sets the Socket to make the connection to the server. Multiple packets can be sent this way
                         Socket s = new Socket(host, port);
                         DataOut = new DataOutputStream(s.getOutputStream());
                     }catch(Exception e){
