@@ -17,6 +17,12 @@ import javax.swing.JOptionPane;
 public class ClientSideGui extends javax.swing.JFrame {
     private static String host;
     private static int port;
+    
+    public DataOutputStream DataOut;
+    
+    
+
+
     /**
      * Creates new form ClientSideGui
      */
@@ -69,6 +75,11 @@ public class ClientSideGui extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtMessageArea);
 
         btnSend.setText("Send Message");
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendActionPerformed(evt);
+            }
+        });
 
         txtReturnArea.setColumns(20);
         txtReturnArea.setRows(5);
@@ -165,8 +176,21 @@ public class ClientSideGui extends javax.swing.JFrame {
                     txtPortField.setText("");
                     txtPortField.requestFocus();
                 }
-                else if (booIP && booPort)
+                else if (booIP && booPort){
+                    //set the connection up with the inputted variables//
+                    
+                    try{
+                        Socket s = new Socket(host, port);
+                        DataOut = new DataOutputStream(s.getOutputStream());
+                    }catch(Exception e){
+                        System.out.println("Working?");        
+                    }
+                    
                     JOptionPane.showMessageDialog(this, "Connection set!");
+                    
+                    
+                    
+                }
             
             
             }
@@ -176,6 +200,21 @@ public class ClientSideGui extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnSetIPandPortActionPerformed
+
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+        try{
+//                    Socket s = new Socket(host, port);
+//                    DataOutputStream  DataOut = new DataOutputStream(s.getOutputStream());
+                    Reader rd = new StringReader(txtMessageArea.getText());
+                    BufferedReader br = new BufferedReader(rd);
+                    String sout = br.readLine();
+                    DataOut.writeUTF(sout);
+                    
+                    
+                    }catch(Exception e){
+                        System.out.println("Ports unavailable");
+                    }
+    }//GEN-LAST:event_btnSendActionPerformed
 
     /**
      * @param args the command line arguments
