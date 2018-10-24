@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package relayserver;
+package relayserver.GUIServer1;
 import com.sun.xml.internal.ws.api.message.Message;
 import java.io.*;
 import java.net.*;

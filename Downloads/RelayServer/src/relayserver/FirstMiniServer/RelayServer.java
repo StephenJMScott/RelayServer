@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package relayserver;
+package relayserver.FirstMiniServer;
+import relayserver.FirstMiniServer.Client;
 import java.io.*;
 import java.net.*;
 

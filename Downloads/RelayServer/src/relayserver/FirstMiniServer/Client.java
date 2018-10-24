@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package relayserver;
+package relayserver.FirstMiniServer;
 import java.io.*;
 import java.net.*;
 
@@ -13,7 +13,7 @@ import java.net.*;
  */
 public class Client {
     public static final String DefaultHost = "localhost"; //change this later;
-    public static final int DefaultPort = 2001; // may need to include Port 2002 as well. 
+    public static final int DefaultPort = 2002; // may need to include Port 2002 as well. 
     
     
     private static String host = DefaultHost;

@@ -3,7 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package relayserver;
+package relayserver.GUIServer1;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,6 +19,8 @@ import javax.swing.JOptionPane;
  */
 public class ServerGui extends javax.swing.JFrame {
 private static int port;
+public  static Boolean booPortSet = false, booServerSet = false;
+
     /**
      * Creates new form ServerGui
      */
@@ -34,7 +43,7 @@ private static int port;
         jScrollPane1 = new javax.swing.JScrollPane();
         txtManipulatedReturn = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtInComing = new javax.swing.JTextArea();
+        txtClientMessage = new javax.swing.JTextArea();
         btnSetPort = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,9 +64,9 @@ private static int port;
         txtManipulatedReturn.setRows(5);
         jScrollPane1.setViewportView(txtManipulatedReturn);
 
-        txtInComing.setColumns(20);
-        txtInComing.setRows(5);
-        jScrollPane2.setViewportView(txtInComing);
+        txtClientMessage.setColumns(20);
+        txtClientMessage.setRows(5);
+        jScrollPane2.setViewportView(txtClientMessage);
 
         btnSetPort.setText("Set");
         btnSetPort.addActionListener(new java.awt.event.ActionListener() {
@@ -122,11 +131,50 @@ private static int port;
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPortFieldActionPerformed
 
+    public static void checkPortAgainAndAgainAndAGAIN(){
+        Timer t = new Timer();
+        t.schedule(new TimerTask() {
+        @Override public void run() {
+              //every second this will check and update the textfield.
+              checkTextField();
+        }
+    }, 0L, 1000L);
+    }
+    
+    public static void checkTextField(){
+           }
+    public static void initServerResponse(){
+        
+        if(booPortSet){
+            try{
+            
+                
+            }catch(Exception e){
+                System.out.println("Server Not Available");
+            }
+        }
+    }
     private void btnSetPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetPortActionPerformed
         //Validate txtPortField is both not empty and within a valid range.
         if(txtPortField.getText().length()<5)// Ensuring the port number is within range of 0 - 9999.
                 try{ //making sure the port is numeric only. 
                     port = Integer.parseInt(txtPortField.getText());
+                    booPortSet=true;
+                    ServerSocket ss = new ServerSocket (port);
+                    Socket s = ss.accept();
+                    System.out.println("Connected");
+                    DataInputStream DataInput =  new DataInputStream(s.getInputStream());
+                    BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
+                        System.out.println("Sever Set");
+             
+//            Messages = txtClientMessage.getText();
+//            String foo = DataInput.readUTF();
+//            txtClientMessage.setText( Messages + "\n" + "Client:" +foo + "\n");
+//            Messages += Messages;
+                    
+                    
+                    
+                    
                 }catch(Exception e){
                     JOptionPane.showMessageDialog(this, "Invalid Port");
                     txtPortField.setText("");
@@ -171,6 +219,11 @@ private static int port;
             java.util.logging.Logger.getLogger(ServerGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        
+            
+            
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -186,7 +239,7 @@ private static int port;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblPort;
     private javax.swing.JLabel lblServerSide;
-    private javax.swing.JTextArea txtInComing;
+    private javax.swing.JTextArea txtClientMessage;
     private javax.swing.JTextArea txtManipulatedReturn;
     private javax.swing.JTextField txtPortField;
     // End of variables declaration//GEN-END:variables
